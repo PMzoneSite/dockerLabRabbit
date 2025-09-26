@@ -40,4 +40,5 @@ services:
          
 volumes:
   rabbit_mq_data:
+
     driver: local
