@@ -26,9 +26,9 @@ try:
         channel.basic_publish(exchange=exchange_name, routing_key=routing_key, body=message)
         print(f"Sent: '{message}' with routing key '{routing_key}'")
         counter += 1
-        time.sleep(1)  # Пауза 1 секунда между сообщениями
+        time.sleep(1)  # ГЏГ ГіГ§Г  1 Г±ГҐГЄГіГ­Г¤Г  Г¬ГҐГ¦Г¤Гі Г±Г®Г®ГЎГ№ГҐГ­ГЁГїГ¬ГЁ
 except KeyboardInterrupt:
-    print("\nОстановка отправки сообщений...")
+    print("\nГЋГ±ГІГ Г­Г®ГўГЄГ  Г®ГІГЇГ°Г ГўГЄГЁ Г±Г®Г®ГЎГ№ГҐГ­ГЁГ©...")
 finally:
     channel.close()
     connection.close()
