@@ -7,8 +7,8 @@ connection = pika.BlockingConnection(url_params)
 
 channel = connection.channel()
 
-exchange_name = 'direct_logs'
-exchange_type = 'direct'
+exchange_name = 'headers_logs'
+exchange_type = 'headers'
 
 channel.exchange_declare(exchange=exchange_name, exchange_type=exchange_type)
 
@@ -16,19 +16,28 @@ queue_name = 'my_queue'
 
 channel.queue_declare(queue=queue_name)
 
-routing_key = 'info'
-channel.queue_bind(exchange=exchange_name, queue=queue_name, routing_key=routing_key)
+routing_key = ' '
+headers
+    binding_arguments = {
+    'x-match':'any'
+    'header1':'value1'
+} 
+
+channel.queue_bind(exchange=exchange_name, queue=queue_name, routing_key=routing_key, arguments = binding_arguments) )
 
 counter = 1
 try:
     while True:
         message = f'Hello, RabbitMQ - Message #{counter}'
-        channel.basic_publish(exchange=exchange_name, routing_key=routing_key, body=message)
+        headers = {
+            'header1':'value1'
+        }
+        channel.basic_publish(exchange=exchange_name, routing_key=routing_key, body=message, properties = pika.BasicProperties(headers=headers)))
         print(f"Sent: '{message}' with routing key '{routing_key}'")
         counter += 1
-        time.sleep(1)  # Ïàóçà 1 ñåêóíäà ìåæäó ñîîáùåíèÿìè
+        time.sleep(1)  
 except KeyboardInterrupt:
-    print("\nÎñòàíîâêà îòïðàâêè ñîîáùåíèé...")
+    print("\nWaiting...")
 finally:
     channel.close()
     connection.close()
